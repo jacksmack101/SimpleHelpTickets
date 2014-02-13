@@ -44,3 +44,7 @@ commands:
       description: Purge all expired tickets
       permission: sht.admin
       usage: /purgetickets
+permissions:
+   sht.noMaxTickets:
+     description: Users with this permission ignore MaxTickets limit in config.
+     default: false

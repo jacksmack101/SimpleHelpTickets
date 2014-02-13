@@ -113,8 +113,10 @@ public class ticket implements CommandExecutor {
               rs.next(); //sets pointer to first record in result set (NEED FOR MySQL)
               
               int ticketTotal = rs.getInt("ticketTotal"); // GET TOTAL NUMBER OF PLAYERS TICKETS
-              if (ticketTotal >= maxTickets) { // IF MAX TICKETS REACHED
-                sender.sendMessage(plugin.getMessage("TicketMax"));              
+              if (ticketTotal >= maxTickets && !player.hasPermission("sht.noMaxTickets")) { // IF MAX TICKETS REACHED    
+                String tempString = plugin.getMessage("TicketMax");
+                tempString = tempString.replace("&arg", Integer.toString(maxTickets));
+            	sender.sendMessage(tempString);  
                 return true;
               }
             } catch (SQLException e) {
@@ -173,8 +175,10 @@ public class ticket implements CommandExecutor {
               rs = stmt.executeQuery("SELECT COUNT(owner) AS ticketTotal FROM SHT_Tickets WHERE owner='"+owner+"' AND status='OPEN'");
 
               int ticketTotal = rs.getInt("ticketTotal"); // GET TOTAL NUMBER OF PLAYERS TICKETS
-              if (ticketTotal >= maxTickets) { // IF MAX TICKETS REACHED
-                sender.sendMessage(plugin.getMessage("TicketMax").replace("&arg", Integer.toString(maxTickets)));              
+              if (ticketTotal >= maxTickets && !player.hasPermission("sht.noMaxTickets")) { // IF MAX TICKETS REACHED  
+                String tempString = plugin.getMessage("TicketMax");
+                tempString = tempString.replace("&arg", Integer.toString(maxTickets));
+            	sender.sendMessage(tempString + " TESTING2");            
                 return true;
               }
             } catch (SQLException e) {
